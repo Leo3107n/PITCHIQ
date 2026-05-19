@@ -1,0 +1,30 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 1.25rem;
+}
+.list { display: flex; flex-direction: column; gap: 1rem; }
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.row:hover { background: var(--bg-card2); }
+.rank { font-size: 1.1rem; font-weight: 800; min-width: 2rem; }
+.info { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+.posRow { display: flex; align-items: center; gap: 0.75rem; }
+.pos { font-weight: 700; font-size: 1rem; }
+.posLabel { color: var(--text-muted); font-size: 0.85rem; flex: 1; }
+.conf { font-weight: 700; font-size: 1rem; }
+.hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem; text-align: center; }

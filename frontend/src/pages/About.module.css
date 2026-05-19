@@ -1,0 +1,31 @@
+.page { padding: 3rem; display: flex; flex-direction: column; gap: 3rem; max-width: 900px; margin: 0 auto; }
+.hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.icon { font-size: 3rem; color: var(--green); }
+.hero h1 { font-size: 2.2rem; font-weight: 800; }
+.hero p { color: var(--text-muted); max-width: 600px; line-height: 1.7; }
+.section h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
+.steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.stepIcon { font-size: 1.8rem; color: var(--green); }
+.step h3 { font-weight: 700; }
+.step p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+.techGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.techCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.techCard h3 { font-weight: 700; color: var(--green); margin-bottom: 0.75rem; }
+.techCard ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.techCard li { font-size: 0.9rem; color: var(--text-muted); }
+.techCard li::before { content: '→ '; color: var(--green); }
+@media (max-width: 600px) { .steps { grid-template-columns: 1fr; } .techGrid { grid-template-columns: 1fr; } .page { padding: 1.5rem; } }

@@ -1,0 +1,74 @@
+.page    { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 2rem; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p  { color: var(--text-muted); margin-top: 0.25rem; }
+
+.empty { text-align: center; padding: 4rem; color: var(--text-muted); }
+.emptyIcon { font-size: 3rem; color: var(--border); margin-bottom: 1rem; }
+
+.table { width: 100%; border-collapse: collapse; }
+.table th {
+  text-align: left; padding: 0.75rem 1rem;
+  font-size: 0.8rem; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+.table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(30,48,36,0.5);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+.table tr:hover td { background: var(--bg-card2); }
+
+.token { font-family: monospace; font-size: 0.78rem; color: var(--text-muted); }
+.rating { font-weight: 800; color: var(--green); font-size: 1.1rem; }
+.pos { background: rgba(0,200,83,0.12); color: var(--green); padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
+.date { color: var(--text-muted); font-size: 0.82rem; }
+
+.actions { display: flex; gap: 0.5rem; align-items: center; }
+.viewBtn {
+  background: var(--bg-card2); border: 1px solid var(--border);
+  color: var(--text); padding: 0.3rem 0.75rem; border-radius: 6px;
+  font-size: 0.82rem; cursor: pointer; transition: border-color 0.2s;
+}
+.viewBtn:hover { border-color: var(--green); color: var(--green); }
+.delBtn {
+  background: transparent; border: 1px solid transparent;
+  color: var(--text-muted); padding: 0.3rem 0.5rem; border-radius: 6px;
+  font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+}
+.delBtn:hover { border-color: var(--danger); color: var(--danger); }
+
+/* Session detail modal */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.modal {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); width: 100%; max-width: 700px;
+  max-height: 85vh; overflow-y: auto; padding: 2rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.modalHeader { display: flex; justify-content: space-between; align-items: center; }
+.modalTitle  { font-size: 1.2rem; font-weight: 800; }
+.closeBtn {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.4rem; cursor: pointer; line-height: 1;
+}
+.closeBtn:hover { color: var(--text); }
+.detailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.detailCard { background: var(--bg-card2); border-radius: 8px; padding: 1rem; }
+.detailLabel { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.predList { display: flex; flex-direction: column; gap: 0.4rem; }
+.predRow  { display: flex; justify-content: space-between; font-size: 0.88rem; }
+.predPos  { font-weight: 700; }
+.predConf { color: var(--green); }
+.attrGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+.attrItem { text-align: center; }
+.attrVal  { font-size: 1.1rem; font-weight: 800; color: var(--green); }
+.attrName { font-size: 0.7rem; color: var(--text-muted); text-transform: capitalize; }
+
+@media (max-width: 768px) { .page { padding: 1.5rem; } .detailGrid { grid-template-columns: 1fr; } }

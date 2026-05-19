@@ -1,0 +1,36 @@
+.page    { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 2rem; }
+.header  { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p  { color: var(--text-muted); margin-top: 0.25rem; }
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.stat {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.statLabel { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.statValue { font-size: 2rem; font-weight: 800; color: var(--green); line-height: 1.1; }
+.statSub   { font-size: 0.78rem; color: var(--text-muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.cardTitle { font-size: 1rem; font-weight: 700; color: var(--green); margin-bottom: 1rem; }
+.empty     { color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 2rem; }
+
+@media (max-width: 900px) {
+  .statsRow { grid-template-columns: 1fr 1fr; }
+  .grid     { grid-template-columns: 1fr; }
+  .page     { padding: 1.5rem; }
+}

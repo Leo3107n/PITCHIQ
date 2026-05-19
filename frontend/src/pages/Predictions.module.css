@@ -1,0 +1,8 @@
+.page { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 2rem; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p  { color: var(--text-muted); margin-top: 0.25rem; }
+.layout    { display: grid; grid-template-columns: 380px 1fr; gap: 2rem; align-items: start; }
+.results   { display: flex; flex-direction: column; gap: 1.5rem; }
+.twoCol    { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.error     { color: var(--danger); background: rgba(255,82,82,0.08); border: 1px solid var(--danger); border-radius: 8px; padding: 1rem; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .twoCol { grid-template-columns: 1fr; } .page { padding: 1.5rem; } }

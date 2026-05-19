@@ -1,0 +1,18 @@
+.page    { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 2rem; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p  { color: var(--text-muted); margin-top: 0.25rem; }
+.layout    { display: grid; grid-template-columns: 380px 1fr; gap: 2rem; align-items: start; }
+.formCol   { display: flex; flex-direction: column; gap: 1rem; }
+.results   { display: flex; flex-direction: column; gap: 1.5rem; }
+.twoCol    { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.posSelect { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; }
+.posSelect label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.posSelect select {
+  width: 100%; background: var(--bg-card2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.5rem 0.75rem; color: var(--text);
+  font-size: 0.9rem; outline: none; cursor: pointer;
+}
+.posSelect select:focus { border-color: var(--green); }
+
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .twoCol { grid-template-columns: 1fr; } .page { padding: 1.5rem; } }

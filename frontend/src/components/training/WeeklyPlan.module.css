@@ -1,0 +1,20 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.title { font-size: 1.05rem; font-weight: 700; color: var(--green); margin-bottom: 1.25rem; }
+.grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+.day {
+  background: var(--bg-card2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  border-top: 3px solid var(--green);
+}
+.rest { border-top-color: var(--border); opacity: 0.6; }
+.dayName { font-weight: 700; font-size: 0.85rem; margin-bottom: 0.5rem; }
+.restLabel { font-size: 0.8rem; color: var(--text-muted); }
+.drillList { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.drillList li { font-size: 0.8rem; color: var(--text-muted); }
+.drillList li::before { content: '• '; color: var(--green); }

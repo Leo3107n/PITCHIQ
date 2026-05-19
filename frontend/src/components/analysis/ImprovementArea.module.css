@@ -1,0 +1,23 @@
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem;
+}
+.title {
+  font-size: 1rem; font-weight: 700; color: var(--warning);
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem;
+}
+.list  { display: flex; flex-direction: column; gap: 0.9rem; }
+.item  { display: flex; flex-direction: column; gap: 0.3rem; }
+.row   { display: flex; justify-content: space-between; font-size: 0.85rem; }
+.attr  { color: var(--text-muted); text-transform: capitalize; }
+.vals  { display: flex; align-items: center; gap: 0.4rem; }
+.current { font-weight: 700; color: var(--danger); }
+.arrow   { color: var(--text-muted); }
+.ideal   { font-weight: 700; color: var(--green); }
+.deficit { font-size: 0.78rem; color: var(--text-muted); }
+.track   { width: 100%; height: 6px; background: var(--border); border-radius: 3px; position: relative; overflow: visible; }
+.fill    { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.idealMark {
+  position: absolute; top: -3px; width: 2px; height: 12px;
+  background: var(--green); border-radius: 1px;
+}

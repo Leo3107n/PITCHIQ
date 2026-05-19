@@ -1,0 +1,45 @@
+============================================================
+Testing evaluation pipeline step by step
+============================================================
+
+[1] Checking model files...
+  OK      knn_model.pkl  (7518 KB)
+  OK      decision_tree.pkl  (1424 KB)
+  OK      random_forest.pkl  (537432 KB)
+  OK      svm_model.pkl  (5802 KB)
+  OK      neural_network.pkl  (293 KB)
+  OK      best_classifier.pkl  (5802 KB)
+
+[2] Checking encoded dataset...
+  OK  encoded_dataset.csv  (51,878 rows)
+  Columns: ['name', 'age', 'nationality', 'height_cm', 'weight_kg', 'overall', 'position', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'agility', 'vision', 'position_encoded']
+  position_encoded unique: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7), np.int64(8), np.int64(9), np.int64(10)]
+
+[3] Testing evaluate_model() on KNN...
+  Accuracy : 0.6344
+  F1       : 0.623
+  Precision: 0.6188
+  Recall   : 0.6344
+  OK
+
+[4] Testing handle_all_metrics()...
+  best_model: neural_network
+  knn              acc=0.6344  f1=0.6230
+  decision_tree    acc=0.5929  f1=0.5906
+  random_forest    acc=0.6565  f1=0.6425
+  svm              acc=0.6660  f1=0.6502
+  neural_network   acc=0.6656  f1=0.6510
+  OK
+
+[5] Testing Flask app creation...
+13:35:44  INFO      pitchiq  Database initialised at c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\database\pitchiq.db
+13:35:44  INFO      pitchiq  PitchIQ API ready — 6 blueprints registered
+  Flask app created OK
+13:37:06  INFO      pitchiq.http  GET /api/evaluate/models → 200  (81174.1ms)
+  GET /api/evaluate/models -> 200
+  best_model: neural_network
+  models: ['decision_tree', 'knn', 'neural_network', 'random_forest', 'svm']
+
+============================================================
+Done
+============================================================

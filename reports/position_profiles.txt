@@ -1,0 +1,14 @@
+Real FIFA Position Profiles (75th percentile)
+============================================================
+
+CAM: {'pace': 73, 'shooting': 65, 'passing': 68, 'dribbling': 71, 'defending': 47, 'physical': 62, 'stamina': 69, 'strength': 64, 'agility': 78, 'vision': 70}
+CB: {'pace': 65, 'shooting': 41, 'passing': 53, 'dribbling': 55, 'defending': 69, 'physical': 75, 'stamina': 69, 'strength': 81, 'agility': 60, 'vision': 49}
+CDM: {'pace': 67, 'shooting': 57, 'passing': 64, 'dribbling': 66, 'defending': 67, 'physical': 74, 'stamina': 77, 'strength': 75, 'agility': 70, 'vision': 65}
+CF: {'pace': 79, 'shooting': 68, 'passing': 66, 'dribbling': 73, 'defending': 40, 'physical': 64, 'stamina': 71, 'strength': 67, 'agility': 82, 'vision': 69}
+CM: {'pace': 69, 'shooting': 61, 'passing': 67, 'dribbling': 68, 'defending': 61, 'physical': 69, 'stamina': 75, 'strength': 69, 'agility': 73, 'vision': 68}
+GK: {'pace': 55, 'shooting': 64, 'passing': 64, 'dribbling': 44, 'defending': 67, 'physical': 67, 'stamina': 35, 'strength': 67, 'agility': 44, 'vision': 44}
+LB: {'pace': 76, 'shooting': 52, 'passing': 62, 'dribbling': 66, 'defending': 64, 'physical': 70, 'stamina': 75, 'strength': 70, 'agility': 74, 'vision': 58}
+LW: {'pace': 80, 'shooting': 64, 'passing': 64, 'dribbling': 71, 'defending': 44, 'physical': 63, 'stamina': 70, 'strength': 64, 'agility': 80, 'vision': 65}
+RB: {'pace': 76, 'shooting': 51, 'passing': 61, 'dribbling': 65, 'defending': 65, 'physical': 70, 'stamina': 76, 'strength': 70, 'agility': 73, 'vision': 58}
+RW: {'pace': 81, 'shooting': 64, 'passing': 64, 'dribbling': 70, 'defending': 44, 'physical': 63, 'stamina': 71, 'strength': 64, 'agility': 80, 'vision': 64}
+ST: {'pace': 75, 'shooting': 68, 'passing': 57, 'dribbling': 67, 'defending': 34, 'physical': 70, 'stamina': 69, 'strength': 77, 'agility': 72, 'vision': 60}

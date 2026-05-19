@@ -1,0 +1,135 @@
+.page    { padding: 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.header  { display: flex; flex-direction: column; gap: 0.25rem; }
+.header h1 { font-size: 1.8rem; font-weight: 800; }
+.header p  { color: var(--text-muted); }
+
+/* ── Section ─────────────────────────────────────────────────────────────── */
+.section { display: flex; flex-direction: column; gap: 1.25rem; }
+.sectionTitle {
+  font-size: 1.15rem; font-weight: 700;
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--text);
+}
+.sectionTitle svg { color: var(--green); font-size: 1.3rem; }
+
+/* ── Summary table ───────────────────────────────────────────────────────── */
+.tableWrap { overflow-x: auto; }
+.table {
+  width: 100%; border-collapse: collapse;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.table th {
+  padding: 0.85rem 1.25rem; text-align: left;
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  background: var(--bg-card2); border-bottom: 1px solid var(--border);
+}
+.table th:not(:first-child) { text-align: right; }
+.table td {
+  padding: 0.85rem 1.25rem; font-size: 0.9rem;
+  border-bottom: 1px solid rgba(30,48,36,0.4);
+  vertical-align: middle;
+}
+.table td:not(:first-child) { text-align: right; font-weight: 700; }
+.table tr:last-child td { border-bottom: none; }
+.table tr.bestRow td { background: rgba(0,200,83,0.05); }
+.table tr:hover td { background: var(--bg-card2); cursor: pointer; }
+.table tr.selectedRow td { background: rgba(0,200,83,0.1); }
+
+.modelNameCell { display: flex; flex-direction: column; gap: 0.15rem; }
+.modelFullName { font-weight: 700; }
+.modelKeyName  { font-size: 0.75rem; color: var(--text-muted); }
+
+.bestTag {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  background: rgba(0,200,83,0.15); color: var(--green);
+  font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem;
+  border-radius: 20px; margin-left: 0.5rem;
+}
+
+/* ── Bar chart comparison ────────────────────────────────────────────────── */
+.chartCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.chartTitle { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+/* ── Model cards ─────────────────────────────────────────────────────────── */
+.modelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.modelCard {
+  background: var(--bg-card); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+  position: relative;
+}
+.modelCard:hover   { border-color: rgba(0,200,83,0.4); transform: translateY(-2px); }
+.modelCard.best    { border-color: var(--green); }
+.modelCard.selected { border-color: var(--green); background: rgba(0,200,83,0.05); }
+
+.bestBadge {
+  position: absolute; top: 0.9rem; right: 0.9rem;
+  background: rgba(0,200,83,0.15); color: var(--green);
+  font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem;
+  border-radius: 20px; display: flex; align-items: center; gap: 0.25rem;
+}
+.modelName { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.15rem; }
+.modelKey  { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+.metricsBlock { display: flex; flex-direction: column; gap: 0.8rem; }
+.metricRow    { display: flex; flex-direction: column; gap: 0.3rem; }
+.metricHeader { display: flex; justify-content: space-between; align-items: center; }
+.metricLabel  { font-size: 0.75rem; color: var(--text-muted); }
+.metricValue  { font-size: 0.82rem; font-weight: 700; }
+.metricBarTrack {
+  width: 100%; height: 7px; background: var(--border);
+  border-radius: 4px; overflow: hidden;
+}
+.metricBarFill { height: 100%; border-radius: 4px; transition: width 0.7s ease; }
+
+/* ── Confusion matrix ────────────────────────────────────────────────────── */
+.cmCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.cmHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+.cmTitle  { font-size: 1rem; font-weight: 700; }
+.cmSubtitle { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.cmLegend {
+  display: flex; gap: 1.5rem; font-size: 0.78rem; color: var(--text-muted);
+}
+.cmLegendItem { display: flex; align-items: center; gap: 0.4rem; }
+.cmLegendDot  { width: 10px; height: 10px; border-radius: 2px; }
+
+.cmWrapper { overflow-x: auto; }
+.cmGrid    { display: grid; gap: 3px; min-width: 500px; }
+.cmCorner  {
+  font-size: 0.62rem; color: var(--text-muted); padding: 0.3rem;
+  display: flex; align-items: flex-end; line-height: 1.2;
+}
+.cmColHeader {
+  font-size: 0.7rem; font-weight: 700; text-align: center;
+  padding: 0.3rem 0.1rem; color: var(--text-muted);
+}
+.cmRowLabel {
+  font-size: 0.7rem; font-weight: 700; display: flex;
+  align-items: center; padding: 0 0.4rem; color: var(--text-muted);
+}
+.cmCell {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; border-radius: 3px;
+  transition: background 0.3s;
+  min-width: 32px; min-height: 32px;
+}
+
+@media (max-width: 900px) {
+  .page { padding: 1.5rem; }
+  .modelGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .modelGrid { grid-template-columns: 1fr; }
+}

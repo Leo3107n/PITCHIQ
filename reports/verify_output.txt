@@ -1,0 +1,43 @@
+﻿============================================================
+  PitchIQ Pipeline Verification
+============================================================
+
+[1] Dataset
+  [PASS]  cleaned_players.csv
+  [PASS]  normalized_players.csv
+  [PASS]  encoded_dataset.csv
+
+[2] Saved Models
+  [PASS]  best_classifier.pkl
+  [PASS]  scaler.pkl
+  [FAIL]  label_encoder.pkl  
+  [PASS]  kmeans_model.pkl
+
+[3] Label Encoder
+  [PASS]  11 positions encoded
+
+[4] Prediction Service
+  [PASS]  predict_positions returns 5
+  [PASS]  confidences sum ~100
+  [PASS]  top position is attacking
+  [FAIL]  GK profile predicts GK  
+  [PASS]  gap_analysis has gaps
+  [PASS]  POSITION_PROFILES uses real data
+
+[5] Clustering Service
+  [PASS]  similar_players returns 5
+  [PASS]  similarity scores valid
+  [PASS]  real player names
+  [PASS]  cluster_id valid
+  [PASS]  cluster_size > 0
+
+[6] Recommendation Service
+  [PASS]  plan has drills
+  [PASS]  plan has weekly_plan
+  [PASS]  priority_attributes correct
+
+============================================================
+  FAILED: 2 check(s)
+    - label_encoder.pkl
+    - GK profile predicts GK
+============================================================

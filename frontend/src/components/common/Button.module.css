@@ -1,0 +1,23 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.full { width: 100%; }
+
+.primary { background: var(--green); color: #000; }
+.primary:hover:not(:disabled) { background: var(--green-light); }
+
+.secondary { background: var(--bg-card2); color: var(--text); border: 1px solid var(--border); }
+.secondary:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+
+.ghost { background: transparent; color: var(--green); border: 1px solid var(--green); }
+.ghost:hover:not(:disabled) { background: rgba(0,200,83,0.1); }
