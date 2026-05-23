@@ -12,11 +12,12 @@ import styles from './ModelMetrics.module.css'
 
 /* ── Constants ────────────────────────────────────────────────────────────── */
 const MODEL_NAMES = {
-  knn:            'K-Nearest Neighbours',
-  decision_tree:  'Decision Tree',
-  random_forest:  'Random Forest',
-  svm:            'Support Vector Machine',
-  neural_network: 'Neural Network (MLP)',
+  knn:               'K-Nearest Neighbours',
+  decision_tree:     'Decision Tree',
+  random_forest:     'Random Forest',
+  svm:               'Support Vector Machine',
+  neural_network:    'Neural Network (MLP)',
+  gradient_boosting: 'Gradient Boosting',
 }
 
 const METRIC_COLORS = {
@@ -27,11 +28,12 @@ const METRIC_COLORS = {
 }
 
 const CARD_ACCENT = {
-  knn:            '#00e676',
-  decision_tree:  '#ff5252',
-  random_forest:  '#ffab40',
-  svm:            '#40c4ff',
-  neural_network: '#b388ff',
+  knn:               '#00e676',
+  decision_tree:     '#ff5252',
+  random_forest:     '#ffab40',
+  svm:               '#40c4ff',
+  neural_network:    '#b388ff',
+  gradient_boosting: '#ff6e40',
 }
 
 /* ── Sub-components ───────────────────────────────────────────────────────── */

@@ -1,0 +1,26 @@
+Checking model feature counts:
+  KNN                   features=12  size=19706KB
+  Decision Tree         features=12  size=2090KB
+  Random Forest         features=12  size=1441286KB
+  SVM                   features=10  size=5802KB
+  Neural Network        features=10  size=293KB
+
+Models with 12 features: ['KNN', 'Decision Tree', 'Random Forest']
+
+Evaluating 12-feature models...
+  KNN                   acc=0.3872  f1=0.3892
+  Decision Tree         acc=0.3934  f1=0.3975
+  Random Forest         acc=0.3381  f1=0.3359
+
+Best 12-feature model: Decision Tree (F1=0.3975)
+Copied -> best_classifier.pkl
+
+Retraining KMeans with 12-feature scaler...
+KMeans model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\../../saved_models/kmeans_model.pkl  (inertia=426143.65)
+
+End-to-end test:
+  predict_positions: [('LW', 100.0), ('CAM', 0.0), ('CB', 0.0)]
+  find_similar: [('A. Boupendza', 'ST'), ('A. Boupendza', 'LW'), ('Y. Wissa', 'LW')]
+  get_cluster_info: id=7 size=14503
+
+Done.

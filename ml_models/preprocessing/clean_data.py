@@ -1,20 +1,17 @@
 """
-PitchIQ - Data Cleaning Pipeline (vectorised)
-================================================
-Reads male_players.csv and produces cleaned_players.csv
-with the canonical 10-attribute schema used by all ML models.
+PitchIQ - Data Cleaning Pipeline
+===================================
+Reads male_players.csv and produces cleaned_players.csv with 12 features.
 
-Attribute mapping:
-  pace      <- pace  (outfield) | avg(gk_speed, gk_reflexes) for GK
-  shooting  <- shooting (outfield) | avg(gk_kicking, gk_handling) for GK
-  passing   <- passing (outfield) | gk_kicking for GK
-  dribbling <- dribbling (outfield) | movement_agility for GK
-  defending <- defending (outfield) | avg(gk_positioning, gk_reflexes, gk_diving) for GK
-  physical  <- physic (outfield) | power_strength for GK
-  stamina   <- power_stamina  (all positions)
-  strength  <- power_strength (all positions)
-  agility   <- movement_agility (all positions)
-  vision    <- mentality_vision (all positions)
+Features:
+  10 core attributes: pace, shooting, passing, dribbling, defending,
+                      physical, stamina, strength, agility, vision
+  2 extra features:   preferred_foot_encoded (Right=1, Left=0)
+                      height_cm_norm (height / 100)
+
+Position rule: PRIMARY position only (first listed in player_positions).
+Multi-label expansion was removed — it creates identical feature vectors
+with different labels, which confuses classifiers and drops accuracy.
 """
 
 import pandas as pd
@@ -38,19 +35,19 @@ POSITION_MAP = {
     "CF":  "CF",
 }
 
-FEATURE_COLS = [
-    "pace", "shooting", "passing", "dribbling", "defending",
-    "physical", "stamina", "strength", "agility", "vision"
-]
+ATTR_COLS    = ["pace","shooting","passing","dribbling","defending",
+                "physical","stamina","strength","agility","vision"]
+FEATURE_COLS = ATTR_COLS + ["preferred_foot_encoded", "height_cm_norm"]
 
 
-def extract_primary_position(pos_str):
+def extract_primary_position(pos_str: str) -> str | None:
+    """Returns the first valid canonical position from a comma-separated string."""
     if not isinstance(pos_str, str):
         return None
     for token in pos_str.split(","):
-        token = token.strip().upper()
-        if token in POSITION_MAP:
-            return POSITION_MAP[token]
+        mapped = POSITION_MAP.get(token.strip().upper())
+        if mapped:
+            return mapped
     return None
 
 
@@ -64,87 +61,80 @@ def clean():
     df = df.drop_duplicates(subset="player_id", keep="first").copy()
     print(f"  After dedup (latest version per player): {len(df):,}")
 
-    # ── 2. Extract primary position ───────────────────────────────────────────
+    # ── 2. Extract PRIMARY position only ─────────────────────────────────────
     df["position"] = df["player_positions"].apply(extract_primary_position)
     df = df[df["position"].notna()].copy()
     print(f"  After position filter: {len(df):,}")
 
     is_gk = df["position"] == "GK"
 
-    # ── 3. Build 10 canonical attributes (vectorised) ─────────────────────────
-
-    # --- pace ---
-    gk_pace = (
-        df["goalkeeping_speed"].fillna(0) * 0.5 +
-        df["goalkeeping_reflexes"].fillna(0) * 0.5
-    )
+    # ── 3. Build canonical attributes (vectorised) ────────────────────────────
+    gk_pace = (df["goalkeeping_speed"].fillna(0) * 0.5 +
+               df["goalkeeping_reflexes"].fillna(0) * 0.5)
     df["pace_clean"] = np.where(is_gk, gk_pace, df["pace"])
 
-    # --- shooting ---
-    gk_shoot = (
-        df["goalkeeping_kicking"].fillna(0) * 0.6 +
-        df["goalkeeping_handling"].fillna(0) * 0.4
-    )
-    df["shooting_clean"] = np.where(is_gk, gk_shoot, df["shooting"])
-
-    # --- passing ---
-    df["passing_clean"] = np.where(is_gk, df["goalkeeping_kicking"].fillna(0), df["passing"])
-
-    # --- dribbling ---
+    gk_shoot = (df["goalkeeping_kicking"].fillna(0) * 0.6 +
+                df["goalkeeping_handling"].fillna(0) * 0.4)
+    df["shooting_clean"]  = np.where(is_gk, gk_shoot, df["shooting"])
+    df["passing_clean"]   = np.where(is_gk, df["goalkeeping_kicking"].fillna(0), df["passing"])
     df["dribbling_clean"] = np.where(is_gk, df["movement_agility"].fillna(0), df["dribbling"])
 
-    # --- defending ---
-    gk_def = (
-        df["goalkeeping_positioning"].fillna(0) * 0.4 +
-        df["goalkeeping_reflexes"].fillna(0) * 0.4 +
-        df["goalkeeping_diving"].fillna(0) * 0.2
-    )
+    gk_def = (df["goalkeeping_positioning"].fillna(0) * 0.4 +
+              df["goalkeeping_reflexes"].fillna(0) * 0.4 +
+              df["goalkeeping_diving"].fillna(0) * 0.2)
     df["defending_clean"] = np.where(is_gk, gk_def, df["defending"])
+    df["physical_clean"]  = np.where(is_gk, df["power_strength"].fillna(0), df["physic"])
 
-    # --- physical ---
-    df["physical_clean"] = np.where(is_gk, df["power_strength"].fillna(0), df["physic"])
-
-    # --- shared attributes (same for all positions) ---
     df["stamina_clean"]  = df["power_stamina"]
     df["strength_clean"] = df["power_strength"]
     df["agility_clean"]  = df["movement_agility"]
     df["vision_clean"]   = df["mentality_vision"]
 
-    # ── 4. Build output dataframe ─────────────────────────────────────────────
+    # ── 4. Extra features ─────────────────────────────────────────────────────
+    df["preferred_foot_encoded"] = (
+        df["preferred_foot"].str.strip().str.capitalize()
+        .map({"Right": 1.0, "Left": 0.0})
+        .fillna(0.5)
+    )
+    df["height_cm_norm"] = df["height_cm"].fillna(180) / 100.0
+
+    # ── 5. Build output dataframe ─────────────────────────────────────────────
     out = pd.DataFrame({
-        "name":        df["short_name"].fillna("Unknown"),
-        "age":         df["age"],
-        "nationality": df["nationality_name"].fillna(""),
-        "height_cm":   df["height_cm"],
-        "weight_kg":   df["weight_kg"],
-        "overall":     df["overall"],
-        "position":    df["position"],
-        "pace":        df["pace_clean"],
-        "shooting":    df["shooting_clean"],
-        "passing":     df["passing_clean"],
-        "dribbling":   df["dribbling_clean"],
-        "defending":   df["defending_clean"],
-        "physical":    df["physical_clean"],
-        "stamina":     df["stamina_clean"],
-        "strength":    df["strength_clean"],
-        "agility":     df["agility_clean"],
-        "vision":      df["vision_clean"],
+        "name":                   df["short_name"].fillna("Unknown").values,
+        "age":                    df["age"].values,
+        "nationality":            df["nationality_name"].fillna("").values,
+        "height_cm":              df["height_cm"].values,
+        "weight_kg":              df["weight_kg"].values,
+        "overall":                df["overall"].values,
+        "position":               df["position"].values,
+        "pace":                   df["pace_clean"].values,
+        "shooting":               df["shooting_clean"].values,
+        "passing":                df["passing_clean"].values,
+        "dribbling":              df["dribbling_clean"].values,
+        "defending":              df["defending_clean"].values,
+        "physical":               df["physical_clean"].values,
+        "stamina":                df["stamina_clean"].values,
+        "strength":               df["strength_clean"].values,
+        "agility":                df["agility_clean"].values,
+        "vision":                 df["vision_clean"].values,
+        "preferred_foot_encoded": df["preferred_foot_encoded"].values,
+        "height_cm_norm":         df["height_cm_norm"].values,
     })
 
-    # ── 5. Drop rows with nulls in feature columns ────────────────────────────
+    # ── 6. Drop nulls in attribute columns ───────────────────────────────────
     before = len(out)
-    out = out.dropna(subset=FEATURE_COLS)
+    out = out.dropna(subset=ATTR_COLS)
     print(f"  After dropping null attributes: {len(out):,}  (dropped {before - len(out):,})")
 
-    # ── 6. Cast and clip all feature columns to int 1-99 ─────────────────────
-    for col in FEATURE_COLS:
+    # ── 7. Cast and clip ──────────────────────────────────────────────────────
+    for col in ATTR_COLS:
         out[col] = out[col].astype(float).round().astype(int).clip(1, 99)
-
-    # ── 7. Cast meta columns ──────────────────────────────────────────────────
     for col in ["age", "height_cm", "weight_kg", "overall"]:
         out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0).astype(int)
+    out["preferred_foot_encoded"] = out["preferred_foot_encoded"].astype(float)
+    out["height_cm_norm"]         = out["height_cm_norm"].astype(float).round(3)
 
-    # ── 8. Dedup on name+position, keep highest overall ───────────────────────
+    # ── 8. Dedup on name+position (keep highest overall) ─────────────────────
     out = out.sort_values("overall", ascending=False)
     out = out.drop_duplicates(subset=["name", "position"], keep="first")
     print(f"  After name+position dedup: {len(out):,}")

@@ -11,11 +11,12 @@ sys.path.insert(0, ROOT)
 from ml_models.evaluation.accuracy_metrics import evaluate_model
 
 MODELS = {
-    "KNN":            "saved_models/knn_model.pkl",
-    "Decision Tree":  "saved_models/decision_tree.pkl",
-    "Random Forest":  "saved_models/random_forest.pkl",
-    "SVM":            "saved_models/svm_model.pkl",
-    "Neural Network": "saved_models/neural_network.pkl",
+    "KNN":               "saved_models/knn_model.pkl",
+    "Decision Tree":     "saved_models/decision_tree.pkl",
+    "Random Forest":     "saved_models/random_forest.pkl",
+    "SVM":               "saved_models/svm_model.pkl",
+    "Neural Network":    "saved_models/neural_network.pkl",
+    "Gradient Boosting": "saved_models/gradient_boosting.pkl",
 }
 
 REPORT_PATH = os.path.join(ROOT, "reports", "model_comparison.txt")

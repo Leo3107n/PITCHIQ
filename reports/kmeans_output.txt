@@ -1,0 +1,40 @@
+﻿python : Traceback (most recent call last):
+At line:1 char:1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "<string>", line 6, in <module>
+    train()
+    ~~~~~^^
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\kmeans_clu
+stering.py", line 22, in train
+    X_scaled = scaler.transform(df[FEATURE_COLS])
+  File "C:\Program 
+Files\Python313\Lib\site-packages\sklearn\utils\_set_output.py", line 316, in 
+wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "C:\Program 
+Files\Python313\Lib\site-packages\sklearn\preprocessing\_data.py", line 1094, 
+in transform
+    X = validate_data(
+        self,
+    ...<6 lines>...
+        ensure_all_finite="allow-nan",
+    )
+  File "C:\Program 
+Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2877, in 
+validate_data
+    _check_feature_names(_estimator, X, reset=reset)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program 
+Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2729, in 
+_check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names seen at fit time, yet now missing:
+- height_cm_norm
+- preferred_foot_encoded
+

@@ -1,0 +1,44 @@
+﻿python : 13:31:18  INFO      pitchiq  Database initialised at 
+c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\database\pitchiq.db
+At line:1 char:1
++ python "c:\Users\perao\OneDrive\Desktop\PitchIQ\test_fix.py" 2>&1 | O ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (13:31:18  INFO ...base\pitchiq.db 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+13:31:18  INFO      pitchiq  PitchIQ API ready ù 6 blueprints registered
+13:31:18  INFO      pitchiq.http  POST /api/predict/positions \u2192 200  
+(3.0ms)
+13:31:18  INFO      pitchiq.http  POST /api/cluster/similar \u2192 200  
+(13.7ms)
+13:31:18  INFO      pitchiq.http  POST /api/analytics/overview \u2192 200  
+(15.5ms)
+Testing prediction_service...
+  Top: ST (100.0%)
+  All: [('ST', 100.0), ('LW', 0.0), ('RW', 0.0), ('CAM', 0.0), ('CM', 0.0)]
+  Strengths: ['shooting', 'passing', 'vision', 'dribbling', 'stamina']
+  Weaknesses: ['strength']
+  PASS
+
+Testing similarity_engine...
+  Similar: [('T. Chevalier', 'ST', 97.4), ('F. Andrada', 'ST', 97.2), ('E. Ponce', 'ST', 97.1)]
+  PASS
+
+Testing cluster_analysis...
+  Cluster: id=2, size=8548
+  Dominant: {'CM': 2087, 'RW': 1132, 'ST': 1090}
+  PASS
+
+Testing Flask app endpoints...
+  POST /api/predict/positions -> 200
+  Top: {'confidence': 100.0, 'position': 'ST'}
+  PASS
+  POST /api/cluster/similar -> 200
+  Similar count: 5
+  PASS
+  POST /api/analytics/overview -> 200
+  Overall: 67, Top: ST
+  PASS
+
+All tests passed - internal server error is fixed.

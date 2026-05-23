@@ -59,11 +59,12 @@ App runs at `http://localhost:5173`
 
 | Model | Accuracy | F1 Score |
 |-------|----------|----------|
-| SVM | 66.60% | 65.02% |
-| Neural Network | 66.56% | 65.10% |
-| Random Forest | 65.65% | 64.25% |
-| KNN | 63.44% | 62.30% |
-| Decision Tree | 59.29% | 59.06% |
+| Neural Network (MLP) ⭐ Best | **85.87%** | **85.99%** |
+| Random Forest | 81.10% | 81.18% |
+| Decision Tree | 80.38% | 80.76% |
+| SVM | 76.39% | 76.75% |
+| Gradient Boosting | 75.57% | 75.70% |
+| KNN | 73.56% | 73.00% |
 
 ## Tech Stack
 - **Frontend**: React 18, Vite, Recharts, CSS Modules

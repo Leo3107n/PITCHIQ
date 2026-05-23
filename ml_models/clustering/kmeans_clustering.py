@@ -1,8 +1,9 @@
 """
 K-Means clustering to group players by playing style.
+Uses all 12 features (10 attrs + preferred_foot_encoded + height_cm_norm)
+to match the scaler that was fitted on 12 features.
 """
 import pandas as pd
-import numpy as np
 import joblib
 import os
 from sklearn.cluster import KMeans
@@ -11,13 +12,18 @@ CLEANED_PATH = os.path.join(os.path.dirname(__file__), "../../dataset/processed/
 SCALER_PATH  = os.path.join(os.path.dirname(__file__), "../../saved_models/scaler.pkl")
 MODEL_PATH   = os.path.join(os.path.dirname(__file__), "../../saved_models/kmeans_model.pkl")
 
-FEATURE_COLS = ["pace","shooting","passing","dribbling","defending",
-                "physical","stamina","strength","agility","vision"]
+# Must match the 12 features the scaler was fitted on
+FEATURE_COLS = [
+    "pace", "shooting", "passing", "dribbling", "defending",
+    "physical", "stamina", "strength", "agility", "vision",
+    "preferred_foot_encoded", "height_cm_norm",
+]
 
 N_CLUSTERS = 8
 
+
 def train():
-    df = pd.read_csv(CLEANED_PATH)
+    df     = pd.read_csv(CLEANED_PATH)
     scaler = joblib.load(SCALER_PATH)
     X_scaled = scaler.transform(df[FEATURE_COLS])
 
@@ -28,6 +34,7 @@ def train():
     joblib.dump(km, MODEL_PATH)
     print(f"KMeans model saved -> {MODEL_PATH}  (inertia={km.inertia_:.2f})")
     return km
+
 
 if __name__ == "__main__":
     train()

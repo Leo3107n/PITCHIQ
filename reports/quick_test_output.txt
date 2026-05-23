@@ -1,0 +1,34 @@
+=== 1. predict_positions ===
+  LW    100.0%
+  CAM   0.0%
+  CB    0.0%
+  CDM   0.0%
+  CF    0.0%
+  OK
+
+=== 2. gap_analysis ===
+  strengths: ['shooting', 'passing', 'dribbling', 'vision', 'agility', 'pace', 'stamina']
+  weaknesses: ['strength', 'defending']
+  OK
+
+=== 3. find_similar ===
+  A. Boupendza              ST    93.6%
+  A. Boupendza              LW    93.6%
+  Y. Wissa                  LW    92.7%
+  OK
+
+=== 4. get_cluster_info ===
+  cluster_id=7 size=14503
+  OK
+
+=== 5. Flask /api/predict/full ===
+11:07:41  INFO      pitchiq  Database initialised at c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\database\pitchiq.db
+11:07:41  INFO      pitchiq  PitchIQ API ready — 6 blueprints registered
+11:07:41  INFO      pitchiq.http  POST /api/predict/full → 200  (121.7ms)
+  status: 200
+  top_position: LW
+  predictions: 5 items
+  session_token: d2748e7a...
+  OK
+
+=== DONE ===

@@ -1,0 +1,139 @@
+============================================================
+Diagnosing /api/predict/full
+============================================================
+
+[1] Saved model files:
+  OK  best_classifier.pkl  (5802 KB)
+  OK  scaler.pkl  (1 KB)
+  OK  label_encoder.pkl  (1 KB)
+  OK  kmeans_model.pkl  (204 KB)
+
+[2] Scaler feature count:
+  Scaler n_features_in_: 12
+  Scaler feature_names_in_: ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'agility', 'vision', 'preferred_foot_encoded', 'height_cm_norm']
+
+[3] Classifier feature count:
+  Classifier type: SVC
+  n_features_in_: 10
+
+[4] Encoded dataset columns:
+  Rows: 79,748
+  Columns: ['name', 'age', 'nationality', 'height_cm', 'weight_kg', 'overall', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'agility', 'vision', 'preferred_foot_encoded', 'height_cm_norm', 'position', 'position_encoded']
+  Has preferred_foot_encoded: True
+  Has height_cm_norm: True
+
+[5] predict_positions():
+  ERROR: X has 12 features, but SVC is expecting 10 features as input.
+Traceback (most recent call last):
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\reports\debug_full.py", line 86, in <module>
+    preds = predict_positions(ATTRS)
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\services\prediction_service.py", line 84, in predict_positions
+    proba   = _clf.predict_proba(vec_scaled)[0]
+              ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\svm\_base.py", line 873, in predict_proba
+    X = self._validate_for_predict(X)
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\svm\_base.py", line 622, in _validate_for_predict
+    X = validate_data(
+        self,
+    ...<5 lines>...
+        reset=False,
+    )
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2923, in validate_data
+    _check_n_features(_estimator, X, reset=reset)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2787, in _check_n_features
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: X has 12 features, but SVC is expecting 10 features as input.
+
+[6] gap_analysis():
+  OK: strengths=['shooting', 'passing', 'dribbling', 'vision', 'agility', 'pace', 'stamina']
+      weaknesses=['strength', 'defending']
+
+[7] get_similar_players():
+  ERROR: The feature names should match those that were passed during fit.
+Feature names seen at fit time, yet now missing:
+- height_cm_norm
+- preferred_foot_encoded
+
+Traceback (most recent call last):
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\reports\debug_full.py", line 107, in <module>
+    similar = get_similar_players(ATTRS, top_n=3)
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\services\clustering_service.py", line 12, in get_similar_players
+    return find_similar(player_attrs, top_n=top_n)
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\similarity_engine.py", line 32, in find_similar
+    _load()
+    ~~~~~^^
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\similarity_engine.py", line 25, in _load
+    _X      = _scaler.transform(_df[FEATURE_COLS])
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\preprocessing\_data.py", line 1094, in transform
+    X = validate_data(
+        self,
+    ...<6 lines>...
+        ensure_all_finite="allow-nan",
+    )
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2877, in validate_data
+    _check_feature_names(_estimator, X, reset=reset)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2729, in _check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names seen at fit time, yet now missing:
+- height_cm_norm
+- preferred_foot_encoded
+
+
+[8] Flask test client POST /api/predict/full:
+01:19:12  INFO      pitchiq  Database initialised at c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\database\pitchiq.db
+01:19:12  INFO      pitchiq  PitchIQ API ready — 6 blueprints registered
+01:19:12  ERROR     pitchiq.errors  Unhandled exception: X has 12 features, but SVC is expecting 10 features as input.
+Traceback (most recent call last):
+  File "C:\Program Files\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\routes\prediction_routes.py", line 55, in full_analysis
+    return jsonify(handle_full_analysis(
+                   ~~~~~~~~~~~~~~~~~~~~^
+        attrs=attrs,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        save=save,
+        ^^^^^^^^^^
+    ))
+    ^
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\controllers\prediction_controller.py", line 36, in handle_full_analysis
+    predictions = predict_positions(attrs, top_n=5)
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\backend\services\prediction_service.py", line 84, in predict_positions
+    proba   = _clf.predict_proba(vec_scaled)[0]
+              ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\svm\_base.py", line 873, in predict_proba
+    X = self._validate_for_predict(X)
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\svm\_base.py", line 622, in _validate_for_predict
+    X = validate_data(
+        self,
+    ...<5 lines>...
+        reset=False,
+    )
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2923, in validate_data
+    _check_n_features(_estimator, X, reset=reset)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\utils\validation.py", line 2787, in _check_n_features
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: X has 12 features, but SVC is expecting 10 features as input.
+01:19:12  INFO      pitchiq.http  POST /api/predict/full → 500  (77.6ms)
+  Status: 500
+  Response: {
+  "error": "Internal server error",
+  "message": "X has 12 features, but SVC is expecting 10 features as input."
+}
+
+============================================================
+Diagnosis complete
+============================================================

@@ -1,0 +1,34 @@
+============================================================
+Retraining SVM and Neural Network with 12 features
+============================================================
+
+[1/2] SVM (12 features + SMOTE)...
+  SMOTE applied: 92,598 training samples after resampling
+SVM accuracy: 0.4909
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/svm_model.pkl
+
+[2/2] Neural Network (12 features + SMOTE)...
+  SMOTE applied: 92,598 training samples after resampling
+Neural Network accuracy: 0.4865  (iterations: 194)
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/neural_network.pkl
+
+Evaluating...
+  SVM                   acc=0.4909  f1=0.4877
+  Neural Network        acc=0.4865  f1=0.4843
+
+Best: SVM (F1=0.4877) -> best_classifier.pkl
+
+Retraining KMeans with 12-feature scaler...
+KMeans model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\../../saved_models/kmeans_model.pkl  (inertia=426143.65)
+
+Updating metrics.json...
+metrics.json updated
+
+End-to-end test:
+  predict_positions OK: top=ST (93.5%)
+  find_similar OK: [('A. Boupendza', 'ST'), ('A. Boupendza', 'LW'), ('Y. Wissa', 'LW')]
+  get_cluster_info OK: id=7 size=14503
+
+============================================================
+COMPLETE
+============================================================

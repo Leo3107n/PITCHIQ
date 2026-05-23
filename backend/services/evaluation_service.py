@@ -22,20 +22,22 @@ logger = logging.getLogger("pitchiq.evaluation")
 METRICS_JSON = os.path.join(ROOT, "reports", "metrics.json")
 
 MODEL_FILES = {
-    "knn":            "knn_model.pkl",
-    "decision_tree":  "decision_tree.pkl",
-    "random_forest":  "random_forest.pkl",
-    "svm":            "svm_model.pkl",
-    "neural_network": "neural_network.pkl",
-    "best":           "best_classifier.pkl",
+    "knn":               "knn_model.pkl",
+    "decision_tree":     "decision_tree.pkl",
+    "random_forest":     "random_forest.pkl",
+    "svm":               "svm_model.pkl",
+    "neural_network":    "neural_network.pkl",
+    "gradient_boosting": "gradient_boosting.pkl",
+    "best":              "best_classifier.pkl",
 }
 
 MODEL_DISPLAY = {
-    "knn":            "K-Nearest Neighbours",
-    "decision_tree":  "Decision Tree",
-    "random_forest":  "Random Forest",
-    "svm":            "Support Vector Machine",
-    "neural_network": "Neural Network (MLP)",
+    "knn":               "K-Nearest Neighbours",
+    "decision_tree":     "Decision Tree",
+    "random_forest":     "Random Forest",
+    "svm":               "Support Vector Machine",
+    "neural_network":    "Neural Network (MLP)",
+    "gradient_boosting": "Gradient Boosting",
 }
 
 # ── In-memory cache ───────────────────────────────────────────────────────────

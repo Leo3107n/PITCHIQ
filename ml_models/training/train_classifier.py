@@ -54,22 +54,25 @@ def run():
 
     # ── 4. Train classifiers ──────────────────────────────────────────
     section("STEP 4 - Train Classifiers")
-    from ml_models.classification.knn_classifier import train as train_knn
-    from ml_models.classification.decision_tree  import train as train_dt
-    from ml_models.classification.random_forest  import train as train_rf
-    from ml_models.classification.svm_classifier import train as train_svm
-    from ml_models.classification.neural_network import train as train_nn
+    from ml_models.classification.knn_classifier   import train as train_knn
+    from ml_models.classification.decision_tree    import train as train_dt
+    from ml_models.classification.random_forest    import train as train_rf
+    from ml_models.classification.svm_classifier   import train as train_svm
+    from ml_models.classification.neural_network   import train as train_nn
+    from ml_models.classification.gradient_boosting import train as train_gb
 
-    print("\n[1/5] K-Nearest Neighbours")
+    print("\n[1/6] K-Nearest Neighbours")
     _, knn_acc = train_knn()
-    print("\n[2/5] Decision Tree")
+    print("\n[2/6] Decision Tree")
     _, dt_acc = train_dt()
-    print("\n[3/5] Random Forest")
+    print("\n[3/6] Random Forest")
     _, rf_acc = train_rf()
-    print("\n[4/5] Support Vector Machine")
+    print("\n[4/6] Support Vector Machine")
     _, svm_acc = train_svm()
-    print("\n[5/5] Neural Network (MLP)")
+    print("\n[5/6] Neural Network (MLP)")
     _, nn_acc = train_nn()
+    print("\n[6/6] Gradient Boosting")
+    _, gb_acc = train_gb()
 
     # ── 5. Train KMeans ───────────────────────────────────────────────
     section("STEP 5 - KMeans Clustering")
@@ -109,11 +112,12 @@ def run():
     # ── 7. Save best ──────────────────────────────────────────────────
     section("STEP 7 - Save Best Classifier")
     src_map = {
-        "KNN":            "knn_model.pkl",
-        "Decision Tree":  "decision_tree.pkl",
-        "Random Forest":  "random_forest.pkl",
-        "SVM":            "svm_model.pkl",
-        "Neural Network": "neural_network.pkl",
+        "KNN":               "knn_model.pkl",
+        "Decision Tree":     "decision_tree.pkl",
+        "Random Forest":     "random_forest.pkl",
+        "SVM":               "svm_model.pkl",
+        "Neural Network":    "neural_network.pkl",
+        "Gradient Boosting": "gradient_boosting.pkl",
     }
     if results:
         best_name = max(results, key=lambda k: results[k]["f1"])

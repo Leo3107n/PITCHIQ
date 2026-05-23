@@ -1,0 +1,100 @@
+﻿
+============================================================
+  STEP 1 - Clean male_players.csv
+============================================================
+Reading male_players.csv ...
+  Raw rows: 180,021  columns: 109
+  After dedup (latest version per player): 53,111
+  After position filter: 53,111
+  After dropping null attributes: 53,111  (dropped 0)
+  After name+position dedup: 51,878
+
+  Position distribution:
+    CB     8,803
+    ST     7,690
+    CM     6,035
+    GK     5,848
+    CDM    4,242
+    RB     4,013
+    RW     3,924
+    LW     3,911
+    LB     3,901
+    CAM    3,158
+    CF       353
+
+  Saved 51,878 rows -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\preprocessing\../../dataset/processed/cleaned_players.csv
+
+============================================================
+  STEP 2 - Normalize
+============================================================
+Normalized dataset saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\preprocessing\../../dataset/processed/normalized_players.csv
+Scaler saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\preprocessing\../../saved_models/scaler.pkl  (features: ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'agility', 'vision', 'preferred_foot_encoded', 'height_cm_norm'])
+
+============================================================
+  STEP 3 - Encode Labels
+============================================================
+Encoded dataset saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\preprocessing\../../dataset/processed/encoded_dataset.csv
+Classes: ['CAM', 'CB', 'CDM', 'CF', 'CM', 'GK', 'LB', 'LW', 'RB', 'RW', 'ST']
+  Positions: ['CAM', 'CB', 'CDM', 'CF', 'CM', 'GK', 'LB', 'LW', 'RB', 'RW', 'ST']
+
+============================================================
+  STEP 4 - Train Classifiers
+============================================================
+
+[1/6] K-Nearest Neighbours
+KNN accuracy: 0.6766
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/knn_model.pkl
+
+[2/6] Decision Tree
+Decision Tree accuracy: 0.6194
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/decision_tree.pkl
+
+[3/6] Random Forest
+Random Forest accuracy: 0.7117
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/random_forest.pkl
+
+[4/6] Support Vector Machine
+  SMOTE applied: 77,462 training samples after resampling
+SVM accuracy: 0.6956
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/svm_model.pkl
+
+[5/6] Neural Network (MLP)
+  SMOTE applied: 77,462 training samples after resampling
+Neural Network accuracy: 0.6531  (iterations: 224)
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/neural_network.pkl
+
+[6/6] Gradient Boosting
+Gradient Boosting accuracy: 0.7063  (iterations: 99)
+Model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\../../saved_models/gradient_boosting.pkl
+
+============================================================
+  STEP 5 - KMeans Clustering
+============================================================
+KMeans model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\../../saved_models/kmeans_model.pkl  (inertia=268990.05)
+
+============================================================
+  STEP 6 - Model Evaluation
+============================================================
+
+Model                  Accuracy  Precision     Recall         F1
+--------------------------------------------------------------
+KNN                      0.7356     0.7292     0.7356     0.7300
+Decision Tree            0.8038     0.8182     0.8038     0.8076
+Random Forest            0.8110     0.8170     0.8110     0.8118
+SVM                      0.7639     0.7783     0.7639     0.7675
+Neural Network           0.8587     0.8621     0.8587     0.8599
+Gradient Boosting        0.7557     0.7657     0.7557     0.7570
+
+Best model: Neural Network  (F1=0.8599, Accuracy=0.8587)
+Report saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\reports\model_comparison.txt
+  Metrics JSON saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\reports\metrics.json
+
+============================================================
+  STEP 7 - Save Best Classifier
+============================================================
+  Best: Neural Network  (Accuracy=0.8587, F1=0.8599)
+  Saved -> best_classifier.pkl
+
+============================================================
+  PitchIQ ML Pipeline Complete
+============================================================

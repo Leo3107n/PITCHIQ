@@ -15,8 +15,12 @@ ENCODED_PATH = os.path.join(os.path.dirname(__file__), "../../dataset/processed/
 SCALER_PATH  = os.path.join(os.path.dirname(__file__), "../../saved_models/scaler.pkl")
 ENCODER_PATH = os.path.join(os.path.dirname(__file__), "../../saved_models/label_encoder.pkl")
 
-FEATURE_COLS = ["pace","shooting","passing","dribbling","defending",
-                "physical","stamina","strength","agility","vision"]
+# Must match the 12 features the scaler was fitted on
+FEATURE_COLS = [
+    "pace", "shooting", "passing", "dribbling", "defending",
+    "physical", "stamina", "strength", "agility", "vision",
+    "preferred_foot_encoded", "height_cm_norm",
+]
 
 
 def evaluate_model(model_path: str) -> dict:

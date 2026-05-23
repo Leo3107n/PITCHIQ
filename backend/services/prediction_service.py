@@ -15,6 +15,12 @@ from backend.config import Config
 FEATURE_COLS = ["pace","shooting","passing","dribbling","defending",
                 "physical","stamina","strength","agility","vision"]
 
+# Scaler was fitted on 12 features — add defaults for the 2 extras not in the API input
+SCALER_COLS  = FEATURE_COLS + ["preferred_foot_encoded", "height_cm_norm"]
+# Defaults: right-footed (1.0), average height normalised (1.80m)
+_FOOT_DEFAULT   = 1.0
+_HEIGHT_DEFAULT = 1.80
+
 # Position ideal attribute profiles — derived from real male_players.csv (75th percentile per position)
 POSITION_PROFILES = {
     "GK":  {"pace":55,"shooting":64,"passing":64,"dribbling":44,"defending":67,"physical":67,"stamina":35,"strength":67,"agility":44,"vision":44},
@@ -44,9 +50,11 @@ def _load():
 def predict_positions(player_attrs: dict, top_n: int = 5) -> list:
     """
     Returns list of {position, confidence} sorted descending.
+    Builds a 12-feature vector (10 attrs + foot default + height default).
     """
     _load()
-    vec = pd.DataFrame([[player_attrs.get(c, 50) for c in FEATURE_COLS]], columns=FEATURE_COLS)
+    row = [player_attrs.get(c, 50) for c in FEATURE_COLS] + [_FOOT_DEFAULT, _HEIGHT_DEFAULT]
+    vec = pd.DataFrame([row], columns=SCALER_COLS)
     vec_scaled = _scaler.transform(vec)
     proba = _clf.predict_proba(vec_scaled)[0]
     classes = _le.classes_

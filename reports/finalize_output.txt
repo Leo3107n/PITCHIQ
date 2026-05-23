@@ -1,0 +1,40 @@
+﻿============================================================
+  [1/3] Retraining KMeans on 51,878 players
+============================================================
+KMeans model saved -> c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\../../saved_models/kmeans_model.pkl  (inertia=268990.05)
+
+============================================================
+  [2/3] Evaluating all 6 models
+============================================================
+
+Model                    Accuracy  Precision     Recall         F1
+----------------------------------------------------------------
+  knn                      0.7356     0.7292     0.7356     0.7300
+  decision_tree            0.8038     0.8182     0.8038     0.8076
+  random_forest            0.8110     0.8170     0.8110     0.8118
+  svm                      0.7639     0.7783     0.7639     0.7675
+  neural_network           0.8587     0.8621     0.8587     0.8599
+  gradient_boosting        0.7557     0.7657     0.7557     0.7570
+
+============================================================
+  [3/3] Saving best model and updating metrics.json
+============================================================
+  Best: neural_network  (Accuracy=0.8587, F1=0.8599)
+  Saved -> best_classifier.pkl
+  Updated -> reports/metrics.json
+
+============================================================
+  MODEL SIZES
+============================================================
+  knn_model.pkl                       8.7 MB
+  decision_tree.pkl                   1.6 MB
+  random_forest.pkl                 176.6 MB
+  svm_model.pkl                      10.5 MB
+  neural_network.pkl                  1.1 MB
+  gradient_boosting.pkl               3.7 MB
+  best_classifier.pkl                 1.1 MB
+  kmeans_model.pkl                    0.2 MB
+
+============================================================
+  DONE
+============================================================

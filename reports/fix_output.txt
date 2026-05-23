@@ -1,0 +1,37 @@
+﻿Testing prediction_service...
+  Top: ST (74.8%)
+  All: [('ST', 74.8), ('CF', 16.5), ('LW', 3.8), ('RW', 2.3), ('CAM', 2.2)]
+  Strengths: ['shooting', 'passing', 'vision', 'dribbling', 'stamina']
+  Weaknesses: ['strength']
+  PASS
+
+Testing similarity_engine...
+  Similar: [('T. Chevalier', 'ST', 97.4), ('F. Andrada', 'ST', 97.2), ('E. Ponce', 'ST', 97.1)]
+  PASS
+
+Testing cluster_analysis...
+python : Traceback (most recent call last):
+At line:1 char:1
++ python "c:\Users\perao\OneDrive\Desktop\PitchIQ\test_fix.py" 2>&1 | O ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\test_fix.py", line 29, in 
+<module>
+    cluster = get_cluster_info(attrs)
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\clustering\cluster_an
+alysis.py", line 43, in get_cluster_info
+    cluster_df   = _df[cluster_mask]
+                   ~~~^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\pandas\core\frame.py", 
+line 4369, in __getitem__
+    return self._getitem_bool_array(key)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\pandas\core\frame.py", 
+line 4419, in _getitem_bool_array
+    raise ValueError(
+        f"Item wrong length {len(key)} instead of {len(self.index)}."
+    )
+ValueError: Item wrong length 79748 instead of 51878.

@@ -1,18 +1,24 @@
 """
-Multi-Layer Perceptron (Neural Network) classifier for position prediction.
-Uses 12 features: 10 attributes + preferred_foot_encoded + height_cm_norm.
-SMOTE applied only to CF (most underrepresented class) if imbalanced-learn available.
+Gradient Boosting classifier for position prediction.
+Uses sklearn's HistGradientBoostingClassifier — fast, handles imbalance natively,
+typically the best performer on tabular data with 10-15 features.
+
+Why Gradient Boosting beats SVM/MLP here:
+  - Builds trees sequentially, each correcting the previous one's errors
+  - HistGradientBoosting uses histogram binning → fast on 50k+ rows
+  - Native support for class_weight='balanced' → no SMOTE needed
+  - Robust to feature scale differences (no StandardScaler needed, but we use it anyway)
 """
 import pandas as pd
 import joblib
 import os
-from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 ENCODED_PATH = os.path.join(os.path.dirname(__file__), "../../dataset/processed/encoded_dataset.csv")
 SCALER_PATH  = os.path.join(os.path.dirname(__file__), "../../saved_models/scaler.pkl")
-MODEL_PATH   = os.path.join(os.path.dirname(__file__), "../../saved_models/neural_network.pkl")
+MODEL_PATH   = os.path.join(os.path.dirname(__file__), "../../saved_models/gradient_boosting.pkl")
 
 FEATURE_COLS = [
     "pace", "shooting", "passing", "dribbling", "defending",
@@ -33,33 +39,23 @@ def train():
         X_scaled, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    # SMOTE to balance minority classes (CF especially)
-    try:
-        from imblearn.over_sampling import SMOTE
-        smote = SMOTE(random_state=42, k_neighbors=5)
-        X_train, y_train = smote.fit_resample(X_train, y_train)
-        print(f"  SMOTE applied: {len(y_train):,} training samples after resampling")
-    except ImportError:
-        print("  imbalanced-learn not installed — skipping SMOTE (pip install imbalanced-learn)")
-
-    clf = MLPClassifier(
-        hidden_layer_sizes=(256, 128, 64, 32),
-        activation="relu",
-        solver="adam",
-        alpha=0.001,            # L2 regularisation
-        batch_size=256,
-        learning_rate="adaptive",
-        max_iter=1000,
+    clf = HistGradientBoostingClassifier(
+        max_iter=500,
+        max_depth=8,
+        learning_rate=0.05,
+        min_samples_leaf=20,
+        l2_regularization=0.1,
+        class_weight="balanced",
         random_state=42,
         early_stopping=True,
         validation_fraction=0.1,
-        n_iter_no_change=30,
-        tol=1e-4,
+        n_iter_no_change=20,
+        verbose=0,
     )
     clf.fit(X_train, y_train)
 
     acc = accuracy_score(y_test, clf.predict(X_test))
-    print(f"Neural Network accuracy: {acc:.4f}  (iterations: {clf.n_iter_})")
+    print(f"Gradient Boosting accuracy: {acc:.4f}  (iterations: {clf.n_iter_})")
 
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     joblib.dump(clf, MODEL_PATH)
