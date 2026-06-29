@@ -1,0 +1,24 @@
+=== Diagnostic start ===
+
+[1] Model file sizes:
+  best_classifier.pkl: 1.09 MB
+  neural_network.pkl: 1.09 MB
+  scaler.pkl: 0.00 MB
+  label_encoder.pkl: 0.00 MB
+  kmeans_model.pkl: 0.20 MB
+
+[2] Try loading best_classifier.pkl...
+  OK: MLPClassifier
+  n_features_in_: 12
+  has predict_proba: True
+  Raw probabilities (top 5):
+    ST: 99.98%
+    LW: 0.01%
+    RW: 0.01%
+    CAM: 0.00%
+    CM: 0.00%
+
+[3] Checking encoded_dataset columns:
+  Columns: ['name', 'age', 'nationality', 'height_cm', 'weight_kg', 'overall', 'position', 'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'agility', 'vision', 'preferred_foot_encoded', 'height_cm_norm', 'position_encoded']
+
+=== Done ===

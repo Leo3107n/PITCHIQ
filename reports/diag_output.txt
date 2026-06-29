@@ -1,0 +1,31 @@
+=== PitchIQ Diagnostic ===
+
+[1] Model files:
+  OK    best_classifier.pkl  (1.1MB)  type=MLPClassifier
+  OK    neural_network.pkl  (1.1MB)  type=MLPClassifier
+  OK    scaler.pkl  (0.0MB)  type=StandardScaler
+  OK    label_encoder.pkl  (0.0MB)  type=LabelEncoder
+  OK    kmeans_model.pkl  (0.2MB)  type=KMeans
+
+[2] prediction_service.predict_positions():
+  OK: [('ST', 89.5), ('LW', 3.9), ('RW', 3.8), ('CAM', 2.5), ('CM', 0.1)]
+
+[3] clustering_service.get_similar_players():
+  OK: [('T. Chevalier', 97.4), ('F. Andrada', 97.2), ('E. Ponce', 97.1)]
+
+[4] clustering_service.get_cluster():
+  OK: cluster_id=2, size=8548
+
+[5] Flask API endpoints:
+  200  POST /api/predict/positions
+  200  POST /api/predict/gap-analysis
+  200  POST /api/predict/full
+  200  POST /api/cluster/similar
+  200  POST /api/cluster/info
+  200  POST /api/training/plan
+  200  POST /api/analytics/overview
+  200  GET /api/analytics/position-profiles
+  200  GET /api/evaluate/models
+  200  GET /api/health
+
+=== Done ===

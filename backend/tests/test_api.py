@@ -33,7 +33,7 @@ class TestPrediction:
         assert len(preds) == 5
         assert "position" in preds[0]
         assert "confidence" in preds[0]
-        # Confidences should sum to ~100
+        # Confidences should sum to ~100 (within 1% due to rounding)
         total = sum(p["confidence"] for p in preds)
         assert 99.0 <= total <= 101.0
 

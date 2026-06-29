@@ -25,9 +25,11 @@ python ml_models/training/train_classifier.py
 
 ### 2. Start the backend
 ```bash
-python backend/app.py
+python start_backend.py
 ```
 API runs at `http://localhost:5000`
+
+> **Always run from the project root** (`PitchIQ/`), not from inside `backend/`.
 
 ### 3. Start the frontend
 ```bash

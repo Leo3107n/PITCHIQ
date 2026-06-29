@@ -1,0 +1,17 @@
+Loading dataset...
+Dataset: 51878 rows, scaler features: 12
+Scaling features...
+Train: 41502, Test: 10376
+Training SVM (C=10)...
+SVM accuracy: 0.7032
+Saved -> svm_model.pkl and best_classifier.pkl
+
+Verifying prediction works...
+Top 5 positions:
+  ST      99.2%  #############################
+  CF       0.4%  
+  LW       0.2%  
+  RW       0.1%  
+  CAM      0.1%  
+
+DONE — server should work now. Restart backend.

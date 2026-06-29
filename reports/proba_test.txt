@@ -1,0 +1,29 @@
+
+=== Striker ===
+  ST      74.6%  ########################
+  CF       4.0%  #
+  RW       3.7%  #
+  LW       3.7%  #
+  CAM      3.5%  #
+  Top: ST 74.6%  |  Positions 2-5 total: 14.9%
+  PASS: meaningful spread across positions
+
+=== Central Mid ===
+  CM      73.6%  ########################
+  CDM     17.1%  #####
+  CAM      3.5%  #
+  RW       3.1%  #
+  LW       1.4%  
+  Top: CM 73.6%  |  Positions 2-5 total: 25.1%
+  PASS: meaningful spread across positions
+
+=== Centre Back ===
+  CB      76.2%  #########################
+  CDM      5.0%  #
+  RB       4.7%  #
+  LB       4.5%  #
+  CM       3.6%  #
+  Top: CB 76.2%  |  Positions 2-5 total: 17.8%
+  PASS: meaningful spread across positions
+
+Done.

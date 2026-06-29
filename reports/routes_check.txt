@@ -1,0 +1,13 @@
+Creating Flask app...
+Flask app created.
+
+All registered routes:
+  GET         /api
+  POST        /api/analytics/overview
+  GET         /api/analytics/position-profiles
+  POST        /api/cluster/info
+  POST        /api/cluster/similar
+  GET         /api/evaluate/confusion-matrix/<model_name>
+  GET         /api/evaluate/models
+  GET         /api/evaluate/models/<model_name>
+  GET         /api/evaluate/status

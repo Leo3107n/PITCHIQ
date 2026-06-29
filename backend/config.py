@@ -5,7 +5,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 class Config:
     # ── Flask ────────────────────────────────────────────────────────
-    DEBUG      = os.getenv("FLASK_DEBUG", "1") == "1"
+    DEBUG      = os.getenv("FLASK_DEBUG", "0") == "1"
     PORT       = int(os.getenv("PORT", 5000))
     SECRET_KEY = os.getenv("SECRET_KEY", "pitchiq-dev-secret-change-in-prod")
 

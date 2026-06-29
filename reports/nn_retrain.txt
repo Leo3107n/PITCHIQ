@@ -1,0 +1,45 @@
+﻿Retraining Neural Network with probability calibration...
+  SMOTE applied: 77,462 training samples after resampling
+  MLP base accuracy: 0.6531  (iterations: 224)
+python : Traceback (most recent call last):
+At line:1 char:1
++ python "c:\Users\perao\OneDrive\Desktop\PitchIQ\retrain_nn.py" 2>&1 | ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last) 
+   ::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\retrain_nn.py", line 8, in 
+<module>
+    clf, acc = train()
+               ~~~~~^^
+  File "c:\Users\perao\OneDrive\Desktop\PitchIQ\ml_models\classification\neural
+_network.py", line 74, in train
+    calibrated_clf.fit(X_test, y_test)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\base.py", line 
+1329, in wrapper
+    estimator._validate_params()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\Python313\Lib\site-packages\sklearn\base.py", line 
+492, in _validate_params
+    validate_parameter_constraints(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._parameter_constraints,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.get_params(deep=False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        caller_name=self.__class__.__name__,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Program 
+Files\Python313\Lib\site-packages\sklearn\utils\_param_validation.py", line 
+98, in validate_parameter_constraints
+    raise InvalidParameterError(
+    ...<2 lines>...
+    )
+sklearn.utils._param_validation.InvalidParameterError: The 'cv' parameter of 
+CalibratedClassifierCV must be an int in the range [2, inf), an object 
+implementing 'split' and 'get_n_splits', an iterable or None. Got 'prefit' 
+instead.

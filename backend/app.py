@@ -99,9 +99,19 @@ def create_app() -> Flask:
         })
 
     logger.info("PitchIQ API ready — %d blueprints registered", 6)
+
+    # Print all registered routes at startup so you can verify
+    predict_routes = [r.rule for r in app.url_map.iter_rules() if "predict" in r.rule]
+    logger.info("Predict routes: %s", predict_routes)
+
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=Config.PORT, debug=Config.DEBUG)
+    app.run(
+        host="0.0.0.0",
+        port=Config.PORT,
+        debug=Config.DEBUG,
+        use_reloader=False,   # prevents double-startup that drops routes
+    )
