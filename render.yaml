@@ -2,7 +2,8 @@ services:
   - type: web
     name: pitchiq-backend
     runtime: python
-    buildCommand: pip install -r backend/requirements.txt
+    pythonVersion: "3.11.9"
+    buildCommand: pip install -r requirements.txt
     startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: FLASK_DEBUG
@@ -11,5 +12,7 @@ services:
         value: INFO
       - key: OPENAI_MODEL
         value: gpt-4o-mini
-      # Set these in the Render dashboard (not here — they contain secrets):
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      # Set these in the Render dashboard (they contain secrets):
       # SECRET_KEY, MONGO_URI, MONGO_DB, OPENAI_API_KEY, CORS_ORIGINS
