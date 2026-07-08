@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { PlayerProvider } from './context/PlayerContext'
 import { ThemeProvider }  from './context/ThemeContext'
 import Navbar    from './components/common/Navbar'
@@ -19,6 +20,7 @@ export default function App() {
           </div>
         </PlayerProvider>
       </ThemeProvider>
+      <Analytics />
     </BrowserRouter>
   )
 }
