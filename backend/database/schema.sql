@@ -1,34 +1,33 @@
--- PitchIQ SQLite Schema
--- Stores player analysis sessions so users can revisit past results.
-
-CREATE TABLE IF NOT EXISTS analysis_sessions (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    session_token TEXT    NOT NULL UNIQUE,
-    player_name   TEXT    NOT NULL DEFAULT 'Anonymous',
-    player_age    INTEGER,
-    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    -- Raw attributes (1-99)
-    pace          INTEGER NOT NULL,
-    shooting      INTEGER NOT NULL,
-    passing       INTEGER NOT NULL,
-    dribbling     INTEGER NOT NULL,
-    defending     INTEGER NOT NULL,
-    physical      INTEGER NOT NULL,
-    stamina       INTEGER NOT NULL,
-    strength      INTEGER NOT NULL,
-    agility       INTEGER NOT NULL,
-    vision        INTEGER NOT NULL,
-
-    -- Computed results (stored as JSON text)
-    predictions   TEXT,   -- JSON: [{position, confidence}, ...]
-    gap_analysis  TEXT,   -- JSON: {position, gaps, strengths, weaknesses}
-    training_plan TEXT,   -- JSON: {drills, weekly_plan, ...}
-    cluster_info  TEXT    -- JSON: {cluster_id, cluster_size, ...}
-);
-
-CREATE INDEX IF NOT EXISTS idx_sessions_token
-    ON analysis_sessions(session_token);
-
-CREATE INDEX IF NOT EXISTS idx_sessions_created
-    ON analysis_sessions(created_at);
+-- PitchIQ — MongoDB Document Model Reference
+-- This file is documentation only. The database is now MongoDB (PyMongo).
+-- Collection: analysis_sessions
+--
+-- Document structure:
+-- {
+--   _id:             ObjectId  (auto)
+--   session_token:   string    UUID, unique index
+--   player_name:     string    default "Anonymous"
+--   player_age:      int
+--   created_at:      datetime  UTC, descending index
+--
+--   pace:            int  1-99
+--   shooting:        int  1-99
+--   passing:         int  1-99
+--   dribbling:       int  1-99
+--   defending:       int  1-99
+--   physical:        int  1-99
+--   stamina:         int  1-99
+--   strength:        int  1-99
+--   agility:         int  1-99
+--   vision:          int  1-99
+--
+--   predictions:     array   [{position, confidence}, ...]
+--   gap_analysis:    object  {position, gaps, strengths, weaknesses}
+--   training_plan:   object  {drills, weekly_plan, ...}
+--   cluster_info:    object  {cluster_id, cluster_size, ...}
+--   scouting_report: string  AI-generated plain-text report (nullable)
+-- }
+--
+-- Indexes:
+--   session_token  (unique)
+--   created_at     (descending)

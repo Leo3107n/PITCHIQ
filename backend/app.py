@@ -25,6 +25,7 @@ from backend.routes.training_routes    import training_bp
 from backend.routes.analytics_routes   import analytics_bp
 from backend.routes.evaluation_routes  import evaluation_bp
 from backend.routes.session_routes     import session_bp
+from backend.routes.scouting_routes    import scouting_bp
 
 # ── Middleware ────────────────────────────────────────────────────────────────
 from backend.middleware.error_handler  import register_error_handlers
@@ -52,7 +53,7 @@ def create_app() -> Flask:
     # ── Database ─────────────────────────────────────────────────────
     with app.app_context():
         init_db()
-        logger.info("Database initialised at %s", Config.DB_PATH)
+        logger.info("MongoDB initialised at %s / %s", Config.MONGO_URI, Config.MONGO_DB)
 
     # ── Blueprints ────────────────────────────────────────────────────
     app.register_blueprint(prediction_bp)
@@ -61,6 +62,7 @@ def create_app() -> Flask:
     app.register_blueprint(analytics_bp)
     app.register_blueprint(evaluation_bp)
     app.register_blueprint(session_bp)
+    app.register_blueprint(scouting_bp)
 
     # ── Middleware ────────────────────────────────────────────────────
     register_error_handlers(app)
@@ -98,7 +100,7 @@ def create_app() -> Flask:
             }
         })
 
-    logger.info("PitchIQ API ready — %d blueprints registered", 6)
+    logger.info("PitchIQ API ready — %d blueprints registered", 7)
 
     # Print all registered routes at startup so you can verify
     predict_routes = [r.rule for r in app.url_map.iter_rules() if "predict" in r.rule]

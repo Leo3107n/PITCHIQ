@@ -23,7 +23,14 @@ pip install -r requirements.txt
 python ml_models/training/train_classifier.py
 ```
 
-### 2. Start the backend
+### 2. Start MongoDB
+Make sure MongoDB is running locally:
+```bash
+mongod --dbpath /data/db
+```
+Or use MongoDB Atlas — set `MONGO_URI` in `backend/.env` to your connection string.
+
+### 3. Start the backend
 ```bash
 python start_backend.py
 ```
@@ -31,7 +38,7 @@ API runs at `http://localhost:5000`
 
 > **Always run from the project root** (`PitchIQ/`), not from inside `backend/`.
 
-### 3. Start the frontend
+### 4. Start the frontend
 ```bash
 cd frontend
 npm install
@@ -70,6 +77,7 @@ App runs at `http://localhost:5173`
 
 ## Tech Stack
 - **Frontend**: React 18, Vite, Recharts, CSS Modules
-- **Backend**: Flask, Flask-CORS, SQLite
+- **Backend**: Flask, Flask-CORS, MongoDB (PyMongo)
+- **AI**: OpenAI API via OpenRouter (scouting reports)
 - **ML**: scikit-learn (Random Forest, KNN, SVM, Neural Network, K-Means)
 - **Data**: 51,878 real FIFA player profiles from male_players.csv

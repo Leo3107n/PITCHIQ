@@ -1,34 +1,37 @@
 """
 Pytest fixtures shared across all backend tests.
+Uses mongomock to replace PyMongo with an in-memory MongoDB implementation —
+no real MongoDB instance required for tests.
 """
 import sys
 import os
-import sqlite3
 import pytest
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, ROOT)
 
-# ── Patch DB to in-memory BEFORE importing app ────────────────────────────────
+# ── Patch MongoDB with mongomock BEFORE importing the app ─────────────────────
+import mongomock
 import backend.database.db as _db_module
+from pymongo import DESCENDING
 
-_SCHEMA_PATH = os.path.join(ROOT, "backend", "database", "schema.sql")
+# Create a single mongomock client shared across the test session
+_mock_client = mongomock.MongoClient()
+_mock_db     = _mock_client["pitchiq_test"]
+_mock_col    = _mock_db["analysis_sessions"]
 
-# Override get_connection to use a shared in-memory connection
-_mem_conn = None
+# Ensure indexes exist on the mock collection
+_mock_col.create_index("session_token", unique=True)
+_mock_col.create_index([("created_at", DESCENDING)])
 
-def _get_mem_connection():
-    global _mem_conn
-    if _mem_conn is None:
-        _mem_conn = sqlite3.connect(":memory:", check_same_thread=False)
-        _mem_conn.row_factory = sqlite3.Row
-        _mem_conn.execute("PRAGMA foreign_keys=ON")
-        with open(_SCHEMA_PATH) as f:
-            _mem_conn.executescript(f.read())
-    return _mem_conn
 
-_db_module.get_connection = _get_mem_connection
-_db_module.init_db = lambda: True   # schema already applied above
+def _get_mock_collection():
+    return _mock_col
+
+
+# Patch the module-level collection getter so all db.py calls use mongomock
+_db_module._get_collection = _get_mock_collection
+_db_module.init_db         = lambda: True   # skip real MongoDB ping in tests
 
 # ── Now import the app ────────────────────────────────────────────────────────
 from backend.app import create_app
@@ -44,6 +47,14 @@ def app():
 @pytest.fixture(scope="session")
 def client(app):
     return app.test_client()
+
+
+@pytest.fixture(autouse=True)
+def clear_sessions():
+    """Wipe the mock collection before each test for isolation."""
+    _mock_col.delete_many({})
+    yield
+    _mock_col.delete_many({})
 
 
 @pytest.fixture
