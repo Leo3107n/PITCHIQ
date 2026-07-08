@@ -1,7 +1,12 @@
+# Root requirements.txt — used by Render for backend deployment
+# Mirrors backend/requirements.txt
 flask==3.0.0
 flask-cors==4.0.0
+gunicorn==21.2.0
 numpy==1.26.2
 pandas==2.1.4
 scikit-learn==1.3.2
 joblib==1.3.2
 python-dotenv==1.0.0
+pymongo==4.6.3
+openai==1.30.0

@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { API_BASE } from '../utils/constants'
 
-const client = axios.create({ baseURL: API_BASE, timeout: 30000 })
+const client = axios.create({
+  baseURL: API_BASE,
+  timeout: 30000,  // 30s — allows for Render cold starts
+})
 
 client.interceptors.response.use(
   (res) => res.data,
@@ -25,7 +28,7 @@ client.interceptors.response.use(
       return Promise.reject({ error: 'Request timed out. The server may be busy.' })
     }
     if (!err.response) {
-      return Promise.reject({ error: 'Cannot reach the backend. Make sure python start_backend.py is running.' })
+      return Promise.reject({ error: 'Cannot reach the backend. Make sure the server is running.' })
     }
 
     return Promise.reject({ error: err.message || 'Unknown error.' })
