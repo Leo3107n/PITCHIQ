@@ -143,14 +143,19 @@ def generate_scouting_report(context: dict) -> str:
     logger.info("Generating scouting report for: %s", context.get("player_name", "Anonymous"))
 
     try:
+        import httpx
         openai_client = OpenAI(
             api_key=api_key,
             base_url="https://openrouter.ai/api/v1/",
             timeout=25.0,
-            default_headers={
-                "HTTP-Referer": "https://pitchiq-roan.vercel.app",
-                "X-Title": "PitchIQ",
-            },
+            http_client=httpx.Client(
+                base_url="https://openrouter.ai/api/v1/",
+                follow_redirects=True,
+                headers={
+                    "HTTP-Referer": "https://pitchiq-roan.vercel.app",
+                    "X-Title": "PitchIQ",
+                },
+            ),
         )
         response = openai_client.chat.completions.create(
             model=Config.OPENAI_MODEL,
