@@ -48,7 +48,10 @@ def create_app() -> Flask:
     app.config.from_object(Config)
 
     # ── CORS ─────────────────────────────────────────────────────────
-    CORS(app, origins=Config.CORS_ORIGINS, supports_credentials=True)
+    # Accept comma-separated origins from env, plus all *.vercel.app previews
+    import re
+    allowed = Config.CORS_ORIGINS + [r"https://.*\.vercel\.app"]
+    CORS(app, origins=allowed, supports_credentials=True)
 
     # ── Database ─────────────────────────────────────────────────────
     with app.app_context():

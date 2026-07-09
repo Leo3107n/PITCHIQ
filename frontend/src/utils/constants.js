@@ -15,4 +15,4 @@ export const ATTRIBUTE_COLORS = {
   stamina:"#69f0ae", strength:"#ff6e40", agility:"#e040fb", vision:"#80d8ff"
 }
 
-export const API_BASE = import.meta.env.VITE_API_BASE || '/api'
+export const API_BASE = import.meta.env.VITE_API_BASE || 'https://pitchiq-iuoo.onrender.com/api'
