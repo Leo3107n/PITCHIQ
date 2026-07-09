@@ -17,8 +17,10 @@ node_modules/
 dist/
 .DS_Store
 
-# ── Large ML model files (retrain locally or upload separately) ───────────────
-saved_models/*.pkl
+# ── Large ML model files ──────────────────────────────────────────────────────
+# random_forest is 176MB — too large for GitHub (100MB limit)
+saved_models/random_forest.pkl
+# All others are committed so Render can serve predictions without retraining
 
 # ── Raw dataset (too large for git, 100MB+) ───────────────────────────────────
 dataset/raw/male_players.csv
