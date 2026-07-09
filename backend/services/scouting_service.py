@@ -145,8 +145,12 @@ def generate_scouting_report(context: dict) -> str:
     try:
         openai_client = OpenAI(
             api_key=api_key,
-            base_url="https://openrouter.ai/api/v1",
+            base_url="https://openrouter.ai/api/v1/",
             timeout=25.0,
+            default_headers={
+                "HTTP-Referer": "https://pitchiq-roan.vercel.app",
+                "X-Title": "PitchIQ",
+            },
         )
         response = openai_client.chat.completions.create(
             model=Config.OPENAI_MODEL,
@@ -175,9 +179,9 @@ def generate_scouting_report(context: dict) -> str:
             retry=True,
         )
     except Exception as e:
-        logger.error("Unexpected OpenAI error: %s", e)
+        logger.error("Unexpected OpenAI/OpenRouter error: %s  (type: %s)", e, type(e).__name__)
         raise ScoutingReportError(
-            "The AI service returned an unexpected error. Please try again.",
+            f"AI service error: {str(e)[:200]}",
             retry=True,
         )
 
